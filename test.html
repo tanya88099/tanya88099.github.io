@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+   <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top" style="background-color:;" >
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="index.html">Karishma<br>Academy</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><p>      </p></li>
+          <li><a class="nav-link scrollto active" href="index.html">Home</a></li>          
+          <li class="dropdown"><a href="#"><span>Online test</span><i class="bi bi-chevron-down"></i></a>
+            <ul><li><a href="test.html">Machine test</a></li>
+              <li><a href="http://psycho.dmrconlineexam.com/Default.aspx">Final Test(combine all test)</a></li>
+            </ul>
+          </li>                          
+          <li>            
+          <button type="button" onclick="reset()" class="btn btn-info">Reset</button></li>
+          <li><a class="getstarted scrollto" href="#about">Get started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+	<!-- As a link -->
+
+<div id="Head" style="margin-top: 15vh;" style="display: none;" class = "text-center">
+ <h3>Time left:<p id="Timer"></p></h3>
+</div>
+<div class="container d-flex align-items-center justify-content-center">
+    <img id="Image" style="margin-top: 10vh; display: none;" name="" src="" class="img-fluid">
+    <p id="Result"></p>
+    <div id="Instruction">
+      <h3>Instruction:</h3><br>
+      <p>This test is for measuring the reaction time. It is called reaction time test. This is a computer based test. It is used to test human movement perception, specially speed and time perception. This test is performed to test your quick response time.</p>
+      <br>
+      <h3>How to work:</h3>
+      <ul>
+        <li> Press L if no color appear on screen.</li>
+        <li>On the monitor, there will be a traffic signal containing any one of 3 lights: Red, green or yellow.</li>
+        <li>On the keyboard you have to keep your finger on blue key (L) all the time.</li>
+        <li>Blue key represents neutral mode. You have to use only one finger all the time.</li>
+      </ul>
+      <p>When a light blinks on the monitor, see the color of the light. Release the blue key, press the key which corresponds to the light ('R' key for Red/'G' key for Green/'Y' key for Yellow) and come back to blue one immediately. Do it as fact as possible . The test goes on for about 1-2 minutes. Don't press wrong color key at any cost. Although nobody is sure, but it is said that 100% accuracy is required in this test.</p>
+      <div id="StartButton">
+    <button type="button" onclick="start()" class="btn  btn-success">Start test</button>
+      </div>
+    </div>
+</div>
+
+<script>
+var Attempts=0, correct=0;
+var LastPressed='';
+window.addEventListener('keydown', function (e) { 
+  console.log('pressed');
+if(e.key=='l' || e.key=='L') {
+  console.log('L pressed');
+  choosePic();
+  LastPressed='l'
+}else if(LastPressed == 'l'){   
+    console.log('other that L pressed');
+  LastPressed='O';  
+  switch(e.key) {
+  case "R":
+    if(document.getElementById("Image").name === "red.png"){
+      correct++;
+      Attempts++;
+    }else{      
+      Attempts++;
+    }
+    break;
+  case "r":
+    if(document.getElementById("Image").name === "red.png"){
+      correct++;
+      Attempts++;
+    }else{      
+      Attempts++;
+    }
+    break;
+  case "y":
+    if(document.getElementById("Image").name === "yellow.png"){
+      correct++;
+      Attempts++;
+    }else{    
+    Attempts++;  
+    }
+    break;
+  case "Y":
+    if(document.getElementById("Image").name === "yellow.png"){
+      correct++;
+      Attempts++;
+    }else{      
+      Attempts++;
+    }
+    break;
+  case "g":
+    if(document.getElementById("Image").name === "green.png"){
+      correct++;
+      Attempts++;
+    }else{      
+      Attempts++;
+    }
+    break;
+  case "G":
+    if(document.getElementById("Image").name === "green.png"){
+      correct++;
+      Attempts++;
+    }else{      
+      Attempts++;
+    }
+    break;  
+}
+  }
+}, false);
+
+var myPix = new Array("red.png","yellow.png","green.png");
+function choosePic() {
+     var randomNum = Math.floor(Math.random() * myPix.length);
+     document.getElementById("Image").name = myPix[randomNum];  
+     document.getElementById("Image").src = myPix[randomNum];     
+}
+
+var seconds = Math.floor(60);
+
+function reset(argument) {
+  window.location.reload();
+}
+
+function startTimer(argument) {
+  x=setInterval(function() {
+  document.getElementById("Timer").innerHTML = seconds + "s ";
+    seconds--;
+
+  if (seconds < 1) {    
+    clearInterval(x);
+    document.getElementById("Timer").innerHTML = "EXPIRED";
+    document.getElementById("Image").style="display: none;";
+    document.getElementById("Result").innerHTML = "<br><br>Attempts made: "+Attempts+ ", Correct: "+correct+", Wrong: "+(Attempts-correct);
+  }
+}, 1000);
+}
+
+
+function start()
+{
+  document.getElementById("Instruction").style="display: none;";
+    document.getElementById("Head").style="display: block;";
+     document.getElementById("Image").style="display: block;";    
+    startTimer();
+};
+
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
